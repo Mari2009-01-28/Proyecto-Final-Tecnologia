@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proyecto Final Tecnología</title>
+<title>De la idea al objeto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink: #FFFFFF;
-    --ink-soft: #F5F2EB;
-    --paper: #2C2825;
-    --paper-dim: #6E665F;
-    --brass: #A37033;
-    --brass-dim: #7A5324;
-    --steel: #8C8275;
-    --line: rgba(44,40,37,0.12);
+    --ink: #10161C;
+    --ink-soft: #161E26;
+    --paper: #EDE7DB;
+    --paper-dim: #B9B4A6;
+    --brass: #C08A46;
+    --brass-dim: #8A6535;
+    --steel: #3E5C76;
+    --line: rgba(237,231,220,0.14);
   }
 
   *{ box-sizing: border-box; }
@@ -59,7 +59,7 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 50;
-    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0));
+    background: linear-gradient(180deg, rgba(16,22,28,0.92), rgba(16,22,28,0));
     padding: 22px 0 40px;
   }
   header.site .wrap{
@@ -135,8 +135,8 @@
     transition: background .2s ease, color .2s ease;
   }
   .btn.solid{ background: var(--brass); color: var(--ink); border-color: var(--brass); }
-  .btn.solid:hover{ background: var(--brass-dim); border-color: var(--brass-dim); color: #FFF; }
-  .btn.ghost:hover{ background: rgba(163,112,51,0.08); }
+  .btn.solid:hover{ background: var(--brass-dim); border-color: var(--brass-dim); }
+  .btn.ghost:hover{ background: rgba(192,138,70,0.1); }
 
   .hero-art{ position: relative; }
   .hero-art svg{ width: 100%; height: auto; }
@@ -219,7 +219,6 @@
     border-radius: 50%;
     border: 1px solid var(--brass);
     display:flex; align-items:center; justify-content:center;
-    background: var(--ink);
   }
   .play-btn svg{ width: 16px; height:16px; fill: var(--brass); margin-left: 3px; }
   .video-placeholder .hint{
@@ -291,10 +290,10 @@
 
 <header class="site">
   <div class="wrap">
-    <div class="brand">Proyecto Final Tecnología</div>
+    <div class="brand">De la idea al objeto</div>
     <nav class="links">
-      <a href="#diseno">Video Tinkercard</a>
-      <a href="#dialogo">Podcast</a>
+      <a href="#diseno">Diseño</a>
+      <a href="#dialogo">Diálogo</a>
       <a href="#construccion">Construcción</a>
       <a href="#documentos">Documentos</a>
     </nav>
@@ -304,9 +303,9 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <div class="kicker">Un proyecto hecho con conocimientos</div>
-      <h1>De conocimientos<br>a acciones</h1>
-      <p class="lede">Este proyecto trata de poner a prueba todos los conocimientos que conforme unidades hemos llenado nuestra mente, desde las primeros codigos hasta la elaboración fisica de cada uno.</p>
+      <div class="kicker">Un proyecto en tres etapas</div>
+      <h1>De la idea<br>al objeto</h1>
+      <p class="lede">Este proyecto empezó en una pantalla, se conversó en voz alta y terminó en las manos. Aquí está documentado de principio a fin: el diseño digital, la charla detrás de las decisiones y la construcción física.</p>
       <div class="hero-cta">
         <a href="#diseno" class="btn solid">Ver el recorrido</a>
         <a href="#documentos" class="btn ghost">Ir a los documentos</a>
@@ -314,18 +313,18 @@
     </div>
     <div class="hero-art">
       <svg viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
-        <g fill="none" stroke="#8C8275" stroke-width="1">
+        <g fill="none" stroke="#3E5C76" stroke-width="1">
           <rect x="60" y="40" width="200" height="200" />
           <circle cx="160" cy="140" r="70" />
           <line x1="60" y1="140" x2="260" y2="140" stroke-dasharray="4 5"/>
           <line x1="160" y1="40" x2="160" y2="240" stroke-dasharray="4 5"/>
         </g>
-        <g fill="none" stroke="#A37033" stroke-width="1.4">
+        <g fill="none" stroke="#C08A46" stroke-width="1.4">
           <path d="M40 260 L100 260 M40 260 L40 220" />
           <path d="M300 80 L300 40 L260 40" />
         </g>
-        <circle cx="160" cy="140" r="3" fill="#2C2825" />
-        <text x="270" y="270" fill="#6E665F" font-family="IBM Plex Sans" font-size="11">R 70mm</text>
+        <circle cx="160" cy="140" r="3" fill="#EDE7DB" />
+        <text x="270" y="270" fill="#8B93A0" font-family="IBM Plex Sans" font-size="11">R 70mm</text>
       </svg>
     </div>
   </div>
@@ -336,28 +335,37 @@
     <div class="stage-head">
       <div class="kicker">Etapa 1 de 3</div>
       <h2>El diseño digital</h2>
-      <p>Para empezar, nuestra primera fase fue el diseño del Arduino en la pagina de Tinkercard.</p>
+      <p>Antes de tocar una sola pieza, el proyecto tomó forma en Tinkercad: cada medida, cada ensamble y cada ajuste se probaron primero en la pantalla.</p>
     </div>
 
-  <div class="stage">
-  <div class="stage-rail">
-    <div class="stage-num">1</div>
-    <div class="stage-thread"></div>
-  </div>
-  
-  <div class="stage-body">
-    <div class="stage-eyebrow">Video · Modelo 3D en Tinkercad</div>
-    <h3>Video Tinkercard</h3>
-    <p class="desc">Un video corto de nuestro diseño digital, junto con un ejemplo de su función en digital.</p>
+    <div class="stage">
+      <div class="stage-rail">
+        <div class="stage-num">1</div>
+        <div class="stage-thread"></div>
+      </div>
+      <div class="stage-body">
+        <div class="stage-eyebrow">Video · Modelo 3D en Tinkercad</div>
+        <h3>Recorrido por el modelo</h3>
+        <p class="desc">Un repaso al modelo terminado, pieza por pieza, explicando las decisiones de diseño antes de pasar a la construcción.</p>
 
-    <video controls width="100%" height="100%">
-      <source src="grabaciontinkercardpinzon.mp4" type="video/mp4">
-      Tu navegador no soporta el elemento de video.
-    </video>
-    
-    <div class="video-caption">Diseño y simulación del modelo en Tinkercad</div>
+        <!--
+          Reemplaza este bloque por tu video real. Dos opciones:
+          1) Video de YouTube/Vimeo: sustituye el <div class="video-placeholder">...</div>
+             por un <iframe> con la URL de inserción, por ejemplo:
+             <iframe src="https://www.youtube.com/embed/TU_ID_DE_VIDEO" title="Diseño en Tinkercad" allowfullscreen></iframe>
+          2) Video propio: usa <video controls src="tu-video.mp4"></video>
+        -->
+        <div class="video-frame">
+          <div class="video-placeholder">
+            <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="hint">Espacio para el video de Tinkercad — sustituye este bloque por tu iframe o archivo de video.</div>
+          </div>
+        </div>
+        <div class="video-caption">Diseño y simulación del modelo en Tinkercad</div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <section id="dialogo" style="padding-top:0;">
   <div class="wrap">
@@ -371,6 +379,7 @@
         <h3>La conversación</h3>
         <p class="desc">Un episodio de podcast donde se comparte el proceso, las decisiones detrás del diseño y los aprendizajes en el camino.</p>
 
+        <!-- Reemplaza este bloque con tu iframe del podcast (YouTube, Spotify embed, etc.) -->
         <div class="video-frame">
           <div class="video-placeholder">
             <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
@@ -394,6 +403,7 @@
         <h3>La construcción física</h3>
         <p class="desc">El modelo digital se convirtió en un objeto real. Este video documenta el proceso de construcción, paso a paso.</p>
 
+        <!-- Reemplaza este bloque con tu iframe o archivo del video de construcción -->
         <div class="video-frame">
           <div class="video-placeholder">
             <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
@@ -415,9 +425,10 @@
     </div>
 
     <div class="docs-grid">
+      <!-- Cambia el href="#" por la ruta real de tu PDF, por ejemplo href="informe-tecnico.pdf" -->
       <div class="doc-card">
         <div class="doc-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#A37033" stroke-width="1.3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C08A46" stroke-width="1.3">
             <path d="M6 2h9l5 5v15H6z"/>
             <path d="M15 2v5h5"/>
             <path d="M9 13h6M9 16.5h6M9 9.5h3"/>
@@ -430,7 +441,7 @@
 
       <div class="doc-card">
         <div class="doc-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#A37033" stroke-width="1.3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C08A46" stroke-width="1.3">
             <path d="M6 2h9l5 5v15H6z"/>
             <path d="M15 2v5h5"/>
             <path d="M9 13h6M9 16.5h6M9 9.5h3"/>
