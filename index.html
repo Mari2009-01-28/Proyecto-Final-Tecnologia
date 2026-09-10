@@ -1,1 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De la idea al objeto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #FFFFFF;
+    --ink-soft: #F5F2EB;
+    --paper: #2C2825;
+    --paper-dim: #6E665F;
+    --brass: #A37033;
+    --brass-dim: #7A5324;
+    --steel: #8C8275;
+    --line: rgba(44,40,37,0.12);
+  }
 
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  a{ color: inherit; }
+  img,svg{ display:block; max-width:100%; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  /* ---------- layout helpers ---------- */
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  section{ padding: 120px 0; }
+  @media (max-width: 720px){
+    section{ padding: 80px 0; }
+    .wrap{ padding: 0 22px; }
+  }
+
+  /* ---------- nav ---------- */
+  header.site{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0));
+    padding: 22px 0 40px;
+  }
+  header.site .wrap{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand{
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+  nav.links{ display:flex; gap: 28px; }
+  nav.links a{
+    text-decoration:none;
+    font-size: 0.88rem;
+    color: var(--paper-dim);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 3px;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  nav.links a:hover{ color: var(--paper); border-color: var(--brass); }
+  @media (max-width: 640px){ nav.links{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height: 100svh;
+    display:flex;
+    align-items:center;
+    padding-top: 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 40px;
+    align-items:center;
+  }
+  @media (max-width: 860px){
+    .hero .wrap{ grid-template-columns: 1fr; }
+    .hero-art{ order: -1; height: 220px; }
+  }
+  .kicker{
+    font-size: 0.92rem;
+    color: var(--brass);
+    margin-bottom: 22px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 5.4vw, 4.1rem);
+    line-height: 1.06;
+    max-width: 13ch;
+  }
+  .hero p.lede{
+    margin-top: 26px;
+    max-width: 46ch;
+    color: var(--paper-dim);
+    font-size: 1.08rem;
+  }
+  .hero-cta{
+    margin-top: 40px;
+    display:flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding: 13px 24px;
+    font-size: 0.92rem;
+    text-decoration:none;
+    border: 1px solid var(--brass);
+    color: var(--paper);
+    transition: background .2s ease, color .2s ease;
+  }
+  .btn.solid{ background: var(--brass); color: var(--ink); border-color: var(--brass); }
+  .btn.solid:hover{ background: var(--brass-dim); border-color: var(--brass-dim); color: #FFF; }
+  .btn.ghost:hover{ background: rgba(163,112,51,0.08); }
+
+  .hero-art{ position: relative; }
+  .hero-art svg{ width: 100%; height: auto; }
+
+  /* ---------- timeline / stages ---------- */
+  .stage-head{
+    text-align:center;
+    max-width: 52ch;
+    margin: 0 auto 90px;
+  }
+  .stage-head .kicker{ margin-bottom: 14px; }
+  .stage-head h2{ font-size: clamp(1.9rem, 3.6vw, 2.6rem); }
+  .stage-head p{ color: var(--paper-dim); margin-top: 18px; }
+
+  .stage{
+    display:grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0 36px;
+    position: relative;
+  }
+  .stage + .stage{ margin-top: 8px; }
+  .stage-rail{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .stage-num{
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    color: var(--brass);
+    width: 46px; height: 46px;
+    border: 1px solid var(--brass-dim);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--ink-soft);
+    flex-shrink:0;
+  }
+  .stage-thread{
+    width: 1px;
+    flex:1;
+    background: var(--line);
+    margin: 6px 0;
+  }
+  .stage:last-child .stage-thread{ display:none; }
+
+  .stage-body{ padding-bottom: 96px; }
+  .stage:last-child .stage-body{ padding-bottom: 0; }
+  .stage-eyebrow{ color: var(--paper-dim); font-size: 0.86rem; margin-bottom: 8px; }
+  .stage-body h3{ font-size: 1.7rem; margin-bottom: 16px; }
+  .stage-body p.desc{ color: var(--paper-dim); max-width: 58ch; margin-bottom: 30px; }
+
+  /* video frame */
+  .video-frame{
+    position: relative;
+    aspect-ratio: 16/9;
+    background: var(--ink-soft);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .video-frame::before,
+  .video-frame::after{
+    content:"";
+    position:absolute;
+    width: 18px; height: 18px;
+    border: 1px solid var(--brass-dim);
+  }
+  .video-frame::before{ top: -1px; left: -1px; border-right:none; border-bottom:none; }
+  .video-frame::after{ bottom: -1px; right: -1px; border-left:none; border-top:none; }
+  .video-frame iframe, .video-frame video{
+    width:100%; height:100%; border:0; display:block;
+  }
+  .video-placeholder{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap: 16px;
+    color: var(--paper-dim);
+  }
+  .play-btn{
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    border: 1px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    background: var(--ink);
+  }
+  .play-btn svg{ width: 16px; height:16px; fill: var(--brass); margin-left: 3px; }
+  .video-placeholder .hint{
+    font-size: 0.8rem;
+    max-width: 30ch;
+    text-align:center;
+    color: var(--paper-dim);
+  }
+  .video-caption{
+    margin-top: 14px;
+    font-size: 0.86rem;
+    color: var(--paper-dim);
+  }
+
+  /* ---------- documents ---------- */
+  .docs-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 56px;
+  }
+  @media (max-width: 700px){ .docs-grid{ grid-template-columns: 1fr; } }
+  .doc-card{
+    position: relative;
+    border: 1px solid var(--line);
+    padding: 36px;
+    background: var(--ink-soft);
+    transition: border-color .2s ease;
+  }
+  .doc-card::before, .doc-card::after{
+    content:"";
+    position:absolute;
+    width: 16px; height: 16px;
+    border: 1px solid var(--brass-dim);
+  }
+  .doc-card::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .doc-card::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .doc-card:hover{ border-color: var(--brass-dim); }
+  .doc-icon{ width: 34px; height:34px; margin-bottom: 22px; }
+  .doc-icon svg{ width:100%; height:100%; }
+  .doc-card h3{ font-size: 1.3rem; margin-bottom: 10px; }
+  .doc-card p{ color: var(--paper-dim); font-size: 0.95rem; margin-bottom: 26px; }
+  .doc-link{
+    display:inline-flex; align-items:center; gap: 10px;
+    text-decoration:none;
+    font-size: 0.9rem;
+    color: var(--brass);
+    border-bottom: 1px solid var(--brass-dim);
+    padding-bottom: 3px;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 44px 0;
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color: var(--paper-dim);
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">De la idea al objeto</div>
+    <nav class="links">
+      <a href="#diseno">Diseño</a>
+      <a href="#dialogo">Diálogo</a>
+      <a href="#construccion">Construcción</a>
+      <a href="#documentos">Documentos</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Un proyecto en tres etapas</div>
+      <h1>De la idea<br>al objeto</h1>
+      <p class="lede">Este proyecto empezó en una pantalla, se conversó en voz alta y terminó en las manos. Aquí está documentado de principio a fin: el diseño digital, la charla detrás de las decisiones y la construcción física.</p>
+      <div class="hero-cta">
+        <a href="#diseno" class="btn solid">Ver el recorrido</a>
+        <a href="#documentos" class="btn ghost">Ir a los documentos</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#8C8275" stroke-width="1">
+          <rect x="60" y="40" width="200" height="200" />
+          <circle cx="160" cy="140" r="70" />
+          <line x1="60" y1="140" x2="260" y2="140" stroke-dasharray="4 5"/>
+          <line x1="160" y1="40" x2="160" y2="240" stroke-dasharray="4 5"/>
+        </g>
+        <g fill="none" stroke="#A37033" stroke-width="1.4">
+          <path d="M40 260 L100 260 M40 260 L40 220" />
+          <path d="M300 80 L300 40 L260 40" />
+        </g>
+        <circle cx="160" cy="140" r="3" fill="#2C2825" />
+        <text x="270" y="270" fill="#6E665F" font-family="IBM Plex Sans" font-size="11">R 70mm</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="diseno">
+  <div class="wrap">
+    <div class="stage-head">
+      <div class="kicker">Etapa 1 de 3</div>
+      <h2>El diseño digital</h2>
+      <p>Antes de tocar una sola pieza, el proyecto tomó forma en Tinkercad: cada medida, cada ensamble y cada ajuste se probaron primero en la pantalla.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-rail">
+        <div class="stage-num">1</div>
+        <div class="stage-thread"></div>
+      </div>
+      <div class="stage-body">
+        <div class="stage-eyebrow">Video · Modelo 3D en Tinkercad</div>
+        <h3>Recorrido por el modelo</h3>
+        <p class="desc">Un repaso al modelo terminado, pieza por pieza, explicando las decisiones de diseño antes de pasar a la construcción.</p>
+
+        <div class="video-frame">
+          <div class="video-placeholder">
+            <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="hint">Espacio para el video de Tinkercad — sustituye este bloque por tu iframe o archivo de video.</div>
+          </div>
+        </div>
+        <div class="video-caption">Diseño y simulación del modelo en Tinkercad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dialogo" style="padding-top:0;">
+  <div class="wrap">
+    <div class="stage">
+      <div class="stage-rail">
+        <div class="stage-num">2</div>
+        <div class="stage-thread"></div>
+      </div>
+      <div class="stage-body">
+        <div class="stage-eyebrow">Video · Episodio de podcast</div>
+        <h3>La conversación</h3>
+        <p class="desc">Un episodio de podcast donde se comparte el proceso, las decisiones detrás del diseño y los aprendizajes en el camino.</p>
+
+        <div class="video-frame">
+          <div class="video-placeholder">
+            <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="hint">Espacio para el episodio del podcast — sustituye este bloque por tu iframe o archivo de audio/video.</div>
+          </div>
+        </div>
+        <div class="video-caption">Episodio completo del podcast</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="construccion" style="padding-top:0;">
+  <div class="wrap">
+    <div class="stage">
+      <div class="stage-rail">
+        <div class="stage-num">3</div>
+      </div>
+      <div class="stage-body">
+        <div class="stage-eyebrow">Video · Construcción física</div>
+        <h3>La construcción física</h3>
+        <p class="desc">El modelo digital se convirtió en un objeto real. Este video documenta el proceso de construcción, paso a paso.</p>
+
+        <div class="video-frame">
+          <div class="video-placeholder">
+            <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="hint">Espacio para el video de construcción — sustituye este bloque por tu iframe o archivo de video.</div>
+          </div>
+        </div>
+        <div class="video-caption">Registro del proceso de construcción</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="documentos">
+  <div class="wrap">
+    <div class="stage-head">
+      <div class="kicker">Documentación</div>
+      <h2>Para leer con calma</h2>
+      <p>Dos documentos con el detalle técnico y el contexto completo del proyecto.</p>
+    </div>
+
+    <div class="docs-grid">
+      <div class="doc-card">
+        <div class="doc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#A37033" stroke-width="1.3">
+            <path d="M6 2h9l5 5v15H6z"/>
+            <path d="M15 2v5h5"/>
+            <path d="M9 13h6M9 16.5h6M9 9.5h3"/>
+          </svg>
+        </div>
+        <h3>Informe técnico</h3>
+        <p>Especificaciones, materiales y el proceso documentado paso a paso.</p>
+        <a class="doc-link" href="#" download>Descargar PDF</a>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#A37033" stroke-width="1.3">
+            <path d="M6 2h9l5 5v15H6z"/>
+            <path d="M15 2v5h5"/>
+            <path d="M9 13h6M9 16.5h6M9 9.5h3"/>
+          </svg>
+        </div>
+        <h3>Memoria del proyecto</h3>
+        <p>El contexto, los objetivos y las conclusiones del proyecto completo.</p>
+        <a class="doc-link" href="#" download>Descargar PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>De la idea al objeto — 2026</span>
+    <span>Diseño, diálogo y construcción</span>
+  </div>
+</footer>
+
+</body>
+</html>
